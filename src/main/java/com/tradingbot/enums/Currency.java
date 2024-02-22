@@ -1,5 +1,7 @@
 package com.tradingbot.enums;
 
+import lombok.ToString;
+
 public enum Currency
 {
     SOL,
@@ -7,4 +9,5 @@ public enum Currency
     ZUSD,
     USDT,
     USD;
+
 }

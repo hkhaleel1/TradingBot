@@ -22,15 +22,13 @@ public class TradeData
     private TriggeringOrderType triggeringOrderType;
     private String misc;
 
-    public static TradeData fromList(final List<String> values)
+    public TradeData(final List<Object> data)
     {
-        return new TradeData(
-                Double.parseDouble(values.get(0)),
-                Double.parseDouble(values.get(1)),
-                Double.parseDouble(values.get(2)),
-                TriggeringOrderSide.fromValue(values.get(3)),
-                TriggeringOrderType.fromValue(values.get(4)),
-                values.get(5)
-        );
+        this.price = Double.parseDouble((String) data.get(0));
+        this.volume = Double.parseDouble((String) data.get(1));
+        this.timeSinceEpoch = Double.parseDouble((String) data.get(2));
+        this.triggeringOrderSide = TriggeringOrderSide.fromValue((String) data.get(3));
+        this.triggeringOrderType = TriggeringOrderType.fromValue((String) data.get(4));
+        this.misc = (String) data.get(5);
     }
 }

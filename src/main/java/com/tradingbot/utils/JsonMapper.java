@@ -4,16 +4,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tradingbot.model.ApiResponse;
+import com.tradingbot.model.rest.ApiResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class JsonMapper
 {
     final ObjectMapper jsonMapper = new ObjectMapper();
-    public <T> ApiResponse<T> parseApiResponse(final String jsonResponse, final TypeReference<ApiResponse<T>> typeReference) throws JsonProcessingException
+    public <T> T parseApiResponse(final String jsonResponse, final TypeReference<ApiResponse<T>> typeReference) throws JsonProcessingException
     {
-        return jsonMapper.readValue(jsonResponse, typeReference);
+        ApiResponse<T> apiResponse = jsonMapper.readValue(jsonResponse, typeReference);
+        if (apiResponse.getError().length > 0)
+        {
+            throw new RuntimeException(String.join("\n",apiResponse.getError()));
+        }
+        return apiResponse.getResult();
     }
 
     public String toJson(final Object obj) throws JsonProcessingException

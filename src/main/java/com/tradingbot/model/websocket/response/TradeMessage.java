@@ -19,15 +19,14 @@ public class TradeMessage extends PublicMessage<List<TradeData>>
     public TradeMessage(List<Object> values)
     {
         this.channelId = (Integer) values.get(0);
-        this.data = mapData((List<Object>) values.get(1));
+        this.data = mapDataList((List<List<Object>>) values.get(1));
         this.event = (String) values.get(2);
         this.pair = (String) values.get(3);
     }
 
-    @Override
-    protected List<TradeData> mapData(List<Object> data) {
+    protected List<TradeData> mapDataList(List<List<Object>> data) {
         return data.stream()
-                .map(x-> TradeData.fromList((List<String>)x))
+                .map(TradeData::new)
                 .toList();
     }
 }

@@ -1,8 +1,9 @@
-package com.tradingbot.model;
+package com.tradingbot.model.rest;
 
 import com.tradingbot.enums.ResultStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 

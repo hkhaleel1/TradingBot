@@ -17,4 +17,8 @@ public enum CurrencyPair
     {
         return value1 + DELIMITER + value2;
     }
+    public String toURIString()
+    {
+        return String.format("%s%s", value1, value2);
+    }
 }

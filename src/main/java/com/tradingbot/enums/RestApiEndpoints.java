@@ -13,6 +13,7 @@ public enum RestApiEndpoints
     ASSET_PAIRS("AssetPairs"),
     TICKER("Ticker"),
     TRADES("Trades"),
+    OHLC("OHLC"),
 
     // PRIVATE REST API
     PRIVATE_ENDPOINT("/0/private/"),
