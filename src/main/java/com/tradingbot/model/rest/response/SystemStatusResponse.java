@@ -1,15 +1,14 @@
-package com.tradingbot.model.rest;
+package com.tradingbot.model.rest.response;
 
 import com.tradingbot.enums.ResultStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @Getter
-public class ResultSystemStatus
+public class SystemStatusResponse
 {
     private ResultStatus status;
     private Date timestamp;

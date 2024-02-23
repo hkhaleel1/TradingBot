@@ -1,8 +1,7 @@
-package com.tradingbot.model.rest;
+package com.tradingbot.model.rest.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.tradingbot.model.websocket.response.data.OHLCData;
-import com.tradingbot.utils.JsonMapper;
+import com.tradingbot.model.rest.response.data.RestOHLCData;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,13 +13,13 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ResultOHLC
+public class OHLCResponse
 {
     private List<RestOHLCData> data;
     private int last;
 
     @JsonCreator
-    public ResultOHLC(Map<String, Object> values)
+    public OHLCResponse(Map<String, Object> values)
     {
         this.data = new ArrayList<>();
         values.forEach((key, value) -> {

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tradingbot.model.rest.ApiResponse;
+import com.tradingbot.model.rest.response.ApiResponse;
 import org.springframework.stereotype.Service;
 
 @Service

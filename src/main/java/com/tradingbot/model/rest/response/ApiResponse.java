@@ -1,4 +1,4 @@
-package com.tradingbot.model.rest;
+package com.tradingbot.model.rest.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -4,8 +4,8 @@ import com.tradingbot.enums.Currency;
 import com.tradingbot.enums.CurrencyPair;
 import com.tradingbot.enums.websocket.PublicSubscriptionType;
 import com.tradingbot.enums.websocket.RequestEventType;
-import com.tradingbot.model.rest.ResultOHLC;
-import com.tradingbot.model.rest.ResultSystemStatus;
+import com.tradingbot.model.rest.response.OHLCResponse;
+import com.tradingbot.model.rest.response.SystemStatusResponse;
 import com.tradingbot.model.websocket.request.TradeEvent;
 import com.tradingbot.service.KrakenPrivateService;
 import com.tradingbot.service.KrakenPublicService;
@@ -37,12 +37,24 @@ public class StartUpController
         log.info("| KRAKEN.COM JAVA TEST APP |");
         log.info("|=========================================|");
         try {
-            ResultSystemStatus systemStatus = publicService.getSystemStatus();
+            SystemStatusResponse systemStatus = publicService.getSystemStatus();
             log.info(systemStatus.toString());
             Map<Currency, Double> balance = privateService.getBalance();
             log.info(balance.toString());
-            ResultOHLC candlesForInterval = publicService.getCandlesForInterval(CurrencyPair.SOL_USD, 1, 1);
+            OHLCResponse candlesForInterval = publicService.getCandlesForInterval(CurrencyPair.SOL_USD, 1, 1);
             log.info(candlesForInterval.toString());
+
+
+//            try {
+//                AddOrderResponse addOrderResponse =
+//                        privateService.AddOrder(OrderType.LIMIT, CurrencyPair.SOL_USD,100.4, OrderSide.BUY, 1.40555179);
+//                log.info(addOrderResponse.toString());
+//            }
+//            catch (RuntimeException e)
+//            {
+//                log.error(e.getMessage());
+//            }
+
 
             TradeEvent tradeEvent = new TradeEvent(RequestEventType.SUBSCRIBE, PublicSubscriptionType.OHLC_1, CurrencyPair.SOL_USD);
             websocketService.openAndStreamWebSocketSubscription(PUBLIC_WEBSOCKET_URL.getValue(), tradeEvent);

@@ -2,8 +2,6 @@ package com.tradingbot.model.websocket.response;
 
 import lombok.ToString;
 
-import java.util.List;
-
 @ToString
 public abstract class PublicMessage<T>
 {

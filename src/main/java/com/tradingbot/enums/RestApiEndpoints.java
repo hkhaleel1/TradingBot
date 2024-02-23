@@ -18,6 +18,11 @@ public enum RestApiEndpoints
     // PRIVATE REST API
     PRIVATE_ENDPOINT("/0/private/"),
     BALANCE("Balance"),
+    ADD_ORDER("AddOrder"),
+    EDIT_ORDER("editOrder"),
+    CANCEL_ORDER("cancelOrder"),
+    CANCEL_ALL("cancelAll"),
+    CANCEL_ALL_ORDERS_AFTER("cancelAllOrdersAfter"),
     // WEBSOCKET
     PUBLIC_WEBSOCKET_URL("wss://ws.kraken.com/"),
     PRIVATE_WEBSOCKET_URL("wss://ws-auth.kraken.com/"),
