@@ -1,27 +1,26 @@
-package com.tradingbot.controller;
+package com.tradingbot.service;
 
 import com.tradingbot.enums.Currency;
 import com.tradingbot.enums.CurrencyPair;
+import com.tradingbot.enums.ResultStatus;
 import com.tradingbot.enums.websocket.PublicSubscriptionType;
 import com.tradingbot.enums.websocket.RequestEventType;
 import com.tradingbot.model.rest.response.OHLCResponse;
 import com.tradingbot.model.rest.response.SystemStatusResponse;
 import com.tradingbot.model.websocket.request.TradeEvent;
-import com.tradingbot.service.KrakenPrivateService;
-import com.tradingbot.service.KrakenPublicService;
-import com.tradingbot.service.KrakenWebsocketService;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 import static com.tradingbot.enums.RestApiEndpoints.PUBLIC_WEBSOCKET_URL;
 
-@Controller
+@Service
 @Slf4j
-public class StartUpController
+public class StartUpService
 {
     @Autowired
     private KrakenWebsocketService websocketService;
@@ -30,18 +29,20 @@ public class StartUpController
     @Autowired
     private KrakenPrivateService privateService;
 
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     public void subscribeOnStartup()
     {
         log.info("|=========================================|");
         log.info("| KRAKEN.COM JAVA TEST APP |");
         log.info("|=========================================|");
         try {
-            SystemStatusResponse systemStatus = publicService.getSystemStatus();
+            final SystemStatusResponse systemStatus = publicService.getSystemStatus();
             log.info(systemStatus.toString());
-            Map<Currency, Double> balance = privateService.getBalance();
+            if (systemStatus.getStatus() != ResultStatus.ONLINE)
+                throw new RuntimeException("Kraken is not online. Check status at https://status.kraken.com/");
+            final Map<Currency, Double> balance = privateService.getBalance();
             log.info(balance.toString());
-            OHLCResponse candlesForInterval = publicService.getCandlesForInterval(CurrencyPair.SOL_USD, 1, 1);
+            final OHLCResponse candlesForInterval = publicService.getCandlesForInterval(CurrencyPair.SOL_USD, 1, 1);
             log.info(candlesForInterval.toString());
 
 
